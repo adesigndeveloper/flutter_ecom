@@ -1,0 +1,9 @@
+E:/flutterprojects/flutter_ecom/build/windows/runner/Debug/data/icudtl.dat
+E:/flutterprojects/flutter_ecom/build/windows/runner/Debug/flutter_windows.dll
+E:/flutterprojects/flutter_ecom/build/windows/runner/Debug/data/flutter_assets/AssetManifest.json
+E:/flutterprojects/flutter_ecom/build/windows/runner/Debug/data/flutter_assets/FontManifest.json
+E:/flutterprojects/flutter_ecom/build/windows/runner/Debug/data/flutter_assets/fonts/MaterialIcons-Regular.otf
+E:/flutterprojects/flutter_ecom/build/windows/runner/Debug/data/flutter_assets/kernel_blob.bin
+E:/flutterprojects/flutter_ecom/build/windows/runner/Debug/data/flutter_assets/NOTICES
+E:/flutterprojects/flutter_ecom/build/windows/runner/Debug/data/flutter_assets/NOTICES.Z
+E:/flutterprojects/flutter_ecom/build/windows/runner/Debug/data/flutter_assets/packages/cupertino_icons/assets/CupertinoIcons.ttf
