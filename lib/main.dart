@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_ecom/pages/home_page.dart';
 import 'package:flutter_ecom/pages/login_page.dart';
+import 'package:flutter_ecom/utills/routes.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 void main() {
@@ -22,8 +23,8 @@ class MyApp extends StatelessWidget {
       darkTheme: ThemeData(brightness: Brightness.dark),
       initialRoute: "/home",
       routes: {
-        '/home': (context) => const LoginPage(),
-        '/login': (context) => const HomePage(),
+        MyRoutes.loginRoute: (context) => const LoginPage(),
+        MyRoutes.homeRoute: (context) => const HomePage(),
         '/': (context) => const LoginPage()
       },
     );
