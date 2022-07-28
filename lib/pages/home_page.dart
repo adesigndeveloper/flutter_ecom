@@ -12,7 +12,7 @@ class HomePage extends StatelessWidget {
         title: const Text('Ecommerce App'),
       ),
       body: Center(child: Text('Welcome to $days days of flutter by $name')),
-      drawer: Drawer(),
+      drawer: const Drawer(),
     );
   }
 }
