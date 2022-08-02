@@ -1,16 +1,5 @@
 class CatelogModel {
-  static final items = [
-    Item(
-      id: 1,
-      name: "MEN'S BETTER THAN NAKED JACKET",
-      desc:
-          "Vel facilisi fusce odio litora tincidunt cras sollicitudin dignissim ",
-      price: 1999,
-      color: "#3505a",
-      imageurl:
-          "http://images.thenorthface.com/is/image/TheNorthFace/236x204_CLR/mens-better-than-naked-jacket-AVMH_LC9_hero.png",
-    )
-  ];
+  static List<Item>? items;
 }
 
 class Item {
@@ -21,4 +10,25 @@ class Item {
   final String? color;
   final String? imageurl;
   Item({this.id, this.name, this.desc, this.price, this.color, this.imageurl});
+
+  //convert json into map for using in app screen
+  factory Item.fromMap(Map<String, dynamic> map) {
+    return Item(
+      id: map["id"],
+      name: map["name"],
+      desc: map["desc"],
+      price: map["price"],
+      color: map["color"],
+      imageurl: map["imageurl"],
+    );
+  }
+
+  toMap() => {
+        "id": id,
+        "name": name,
+        "desc": desc,
+        "price": price,
+        "color": color,
+        "imageurl": imageurl
+      };
 }
