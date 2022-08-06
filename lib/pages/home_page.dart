@@ -1,9 +1,12 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'dart:convert';
+import 'package:velocity_x/velocity_x.dart';
+
 import 'package:flutter_ecom/models/catelog.dart';
-import 'package:flutter_ecom/widgets/drawer.dart';
-import 'package:flutter_ecom/widgets/item_widget.dart';
+import 'package:flutter_ecom/widgets/themes.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -38,53 +41,112 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     //final dummyList = List.generate(94, (index) => CatelogModel.items[0]);
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Ecommerce App'),
-      ),
-      body: (CatelogModel.items != null && CatelogModel.items!.isNotEmpty)
-          ? GridView.builder(
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-                mainAxisSpacing: 10,
-                crossAxisSpacing: 10,
-              ),
-              itemBuilder: (context, index) {
-                final item = CatelogModel.items![index];
-                return Card(
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10)),
-                    child: GridTile(
-                      header: Container(
-                          padding: const EdgeInsets.all(12.0),
-                          decoration: const BoxDecoration(color: Colors.red),
-                          child: Text(
-                            item.name!,
-                            style: const TextStyle(color: Colors.white),
-                          )),
-                      child: Image.network(item.imageurl!),
-                      footer: Container(
-                          padding: const EdgeInsets.all(12.0),
-                          decoration: const BoxDecoration(color: Colors.red),
-                          child: Text(
-                            item.price.toString(),
-                            style: const TextStyle(color: Colors.white),
-                          )),
-                    ));
-              },
-              itemCount: CatelogModel.items?.length,
-            )
-          // ListView.builder(
-          //     itemCount: CatelogModel.items?.length,
-          //     itemBuilder: (context, index) {
-          //       return ItemWidget(
-          //         item: CatelogModel.items![index],
-          //       );
-          //     },
-          //   )
-          : const Center(
+        body: SafeArea(
+            child: Container(
+      padding: Vx.m16,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const CatelogHeader(),
+          if (CatelogModel.items != null && CatelogModel.items!.isNotEmpty)
+            const CatelogList().expand()
+          else
+            const Center(
               child: CircularProgressIndicator(),
-            ),
-      drawer: const MyDrawer(),
+            )
+        ],
+      ),
+    )));
+  }
+}
+
+class CatelogHeader extends StatelessWidget {
+  const CatelogHeader({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        "WebPino E-Com App".text.xl3.bold.color(MyTheme.darkRedishColor).make(),
+        "Tranding Products".text.xl2.make(),
+      ],
     );
+  }
+}
+
+class CatelogList extends StatelessWidget {
+  const CatelogList({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return ListView.builder(
+      itemCount: CatelogModel.items?.length,
+      itemBuilder: (context, index) {
+        final catelog = CatelogModel.items![index];
+        return CatelogItem(catelog: catelog);
+      },
+    );
+  }
+}
+
+class CatelogItem extends StatelessWidget {
+  final Item catelog;
+
+  const CatelogItem({Key? key, required this.catelog}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return VxBox(
+        child: Row(
+      children: [
+        CatelogImage(
+          image: catelog.imageurl!,
+        ),
+        Expanded(
+            child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            catelog.name.text.color(MyTheme.darkRedishColor).bold.make().py12(),
+            catelog.desc.text.textStyle(context.captionStyle).make(),
+            10.heightBox,
+            ButtonBar(
+              alignment: MainAxisAlignment.spaceBetween,
+              buttonPadding: Vx.mH12,
+              children: [
+                "Rs. ${catelog.price}".text.bold.xl.make(),
+                ElevatedButton(
+                    onPressed: () {},
+                    style: ButtonStyle(
+                        backgroundColor: MaterialStateProperty.all(
+                          MyTheme.darkRedishColor,
+                        ),
+                        shape: MaterialStateProperty.all(StadiumBorder())),
+                    child: "Buy".text.make()),
+              ],
+            )
+          ],
+        ))
+      ],
+    )).white.roundedLg.square(180).make().py12();
+  }
+}
+
+class CatelogImage extends StatelessWidget {
+  final String image;
+  const CatelogImage({
+    Key? key,
+    required this.image,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Image.network(image)
+        .box
+        .color(MyTheme.creamColor)
+        .make()
+        .p12()
+        .w40(context);
   }
 }
