@@ -42,14 +42,45 @@ class _HomePageState extends State<HomePage> {
         title: const Text('Ecommerce App'),
       ),
       body: (CatelogModel.items != null && CatelogModel.items!.isNotEmpty)
-          ? ListView.builder(
-              itemCount: CatelogModel.items?.length,
+          ? GridView.builder(
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+                mainAxisSpacing: 10,
+                crossAxisSpacing: 10,
+              ),
               itemBuilder: (context, index) {
-                return ItemWidget(
-                  item: CatelogModel.items![index],
-                );
+                final item = CatelogModel.items![index];
+                return Card(
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10)),
+                    child: GridTile(
+                      header: Container(
+                          padding: const EdgeInsets.all(12.0),
+                          decoration: const BoxDecoration(color: Colors.red),
+                          child: Text(
+                            item.name!,
+                            style: const TextStyle(color: Colors.white),
+                          )),
+                      child: Image.network(item.imageurl!),
+                      footer: Container(
+                          padding: const EdgeInsets.all(12.0),
+                          decoration: const BoxDecoration(color: Colors.red),
+                          child: Text(
+                            item.price.toString(),
+                            style: const TextStyle(color: Colors.white),
+                          )),
+                    ));
               },
+              itemCount: CatelogModel.items?.length,
             )
+          // ListView.builder(
+          //     itemCount: CatelogModel.items?.length,
+          //     itemBuilder: (context, index) {
+          //       return ItemWidget(
+          //         item: CatelogModel.items![index],
+          //       );
+          //     },
+          //   )
           : const Center(
               child: CircularProgressIndicator(),
             ),
